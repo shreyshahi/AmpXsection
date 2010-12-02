@@ -6,7 +6,7 @@ PFont plotFont;
 int selT = 1;
 int plotFlag =1;
 int flagFirstPt=1;
-
+int firstPassFlag = 1;
 float pX1=0;
 float pX2=0;
 float pY1=600;
@@ -77,8 +77,37 @@ void draw() {
   fill(0);
   text("Strike-Slip",225,25);
   text("Non-Strike-Slip",720,25);
+  if(firstPassFlag == 1){
+    drawLegend();
+  }
 }
-
+void drawLegend(){
+  firstPassFlag = 0;
+  strokeWeight(2);
+  //textAlign(LEFT,CENTER);
+  stroke(220,20,60);
+  line(510,125,550,125);
+  stroke(255,192,203);
+  line(680,125,720,125);
+  stroke(65,105,255);
+  line(840,125,880,125);
+  stroke(180,238,180);
+  line(510,175,550,175);
+  stroke(139,136,120);
+  line(680,175,720,175);
+  stroke(238,201,0);
+  line(840,175,880,175);
+  strokeWeight(1);
+  fill(0);
+  plotFont = createFont("SansSerif", 20);
+  textFont(plotFont);
+  text(ssModels[0],560,125);
+  text(ssModels[1],730,125);
+  text(ssModels[2],890,125);
+  text("sha10",560,175);
+  text(ssModels[4],730,175);
+  text(ssModels[5],890,175);
+}
 void drawGrid(){
  stroke(240);
  strokeWeight(0.5);
@@ -128,6 +157,22 @@ void drawTboxes() {
 
 void showLine() {
   line(pX1,pY1,pX2,pY2);
+  //TODO: Rescale the x and y values for display 
+  int caseNo;
+  if(ssNSS == 0) {
+    caseNo = selCase -1 ;
+  }
+  else {
+    caseNo = 6 + selCase -1 ;
+  }
+  fill(0);
+  plotFont = createFont("SansSerif", 20);
+  textFont(plotFont);
+  text("X1 = "+(xmin[caseNo] + pX1*(xmax[caseNo]-xmin[caseNo])/500),120,630);
+  text("X2 = "+(xmin[caseNo] + pX2*(xmax[caseNo]-xmin[caseNo])/500),120,670);
+  text("Y1 = "+(ymin[caseNo] + (600-pY1)*(ymax[caseNo]-ymin[caseNo])/400),250,630);
+  text("Y2 = "+(ymin[caseNo] + (600-pY2)*(ymax[caseNo]-ymin[caseNo])/400),250,670);
+  fill(255);
 }
 
 void drawLine() {
