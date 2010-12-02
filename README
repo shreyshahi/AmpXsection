@@ -1,0 +1,10 @@
+This project aims to create an intutive GUI to look at amplification predicted by various directivity models across a section of map.
+For more details about the directivity comparision project see :
+
+http://peer.berkeley.edu/ngawest2/index.html 
+http://www.shreyshahi.com/directivity
+
+TODO :
+
+Add legend to plot
+Add screenshot capabilities
