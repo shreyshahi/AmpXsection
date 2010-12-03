@@ -342,7 +342,147 @@ void drawPlotBox() {
   }
 }  
 
+float getFaultX(float x){
+  int caseNo;
+  if(ssNSS == 0) {
+    caseNo = selCase -1 ;
+  }
+  else {
+    caseNo = 6 + selCase -1 ;
+  }
+  float X;
+  X = (x-xmin[caseNo])/(xmax[caseNo]-xmin[caseNo])*500;
+ return X; 
+}
+
+float getFaultY(float y){
+  int caseNo;
+  if(ssNSS == 0) {
+    caseNo = selCase -1 ;
+  }
+  else {
+    caseNo = 6 + selCase -1 ;
+  }
+  float Y;
+  Y = 600 - (y-ymin[caseNo])/(ymax[caseNo]-ymin[caseNo])*400;
+  return Y;
+}
+
+
 void drawFault() {
+  if(ssNSS == 0) {
+    strokeWeight(2);
+    switch(selCase){
+      case 1:
+        line(getFaultX(0),getFaultY(0),getFaultX(0),getFaultY(6));
+        break;
+      case 2:
+        line(getFaultX(0),getFaultY(0),getFaultX(0),getFaultY(25));
+        break;
+      case 3:
+        line(getFaultX(0),getFaultY(0),getFaultX(0),getFaultY(80));
+        break;
+      case 4:
+        line(getFaultX(0),getFaultY(0),getFaultX(0),getFaultY(235));
+        break;
+      case 5:
+        line(getFaultX(0),getFaultY(0),getFaultX(0),getFaultY(20));
+        line(getFaultX(0),getFaultY(20),getFaultX(14.1),getFaultY(34.1));
+        break;
+      case 6:
+        strokeWeight(1);
+        fill(220);
+        beginShape();
+        vertex(getFaultX(0),getFaultY(0));
+        vertex(getFaultX(0),getFaultY(80));
+        vertex(getFaultX(5.1303),getFaultY(80));
+        vertex(getFaultX(5.1303),getFaultY(0));
+        endShape();
+        fill(255);
+        //line(getFaultX(0),getFaultY(0),getFaultX(0),getFaultY(80));
+        break;
+      default:
+        break;     
+    }
+    strokeWeight(1);
+  }
+  else {
+    switch(selCase){
+      case 1:
+        fill(220);
+        beginShape();
+        vertex(getFaultX(0),getFaultY(0));
+        vertex(getFaultX(0),getFaultY(6));
+        vertex(getFaultX(3.5355),getFaultY(6));
+        vertex(getFaultX(3.5355),getFaultY(0));
+        endShape();
+        fill(255);
+        break;
+      case 2:
+        fill(220);
+        beginShape();
+        vertex(getFaultX(0),getFaultY(0));
+        vertex(getFaultX(0),getFaultY(18));
+        vertex(getFaultX(12.7279),getFaultY(18));
+        vertex(getFaultX(12.7279),getFaultY(0));
+        endShape();
+        fill(255);
+        break;
+      case 3:
+        fill(220);
+        beginShape();
+        vertex(getFaultX(0),getFaultY(0));
+        vertex(getFaultX(0),getFaultY(18));
+        vertex(getFaultX(12.7279),getFaultY(18));
+        vertex(getFaultX(12.7279),getFaultY(0));
+        endShape();
+        fill(255);
+       break;
+      case 4:
+        fill(220);
+        beginShape();
+        vertex(getFaultX(0),getFaultY(0));
+        vertex(getFaultX(0),getFaultY(32));
+        vertex(getFaultX(24.2487),getFaultY(32));
+        vertex(getFaultX(24.2487),getFaultY(0));
+        endShape();
+        fill(255);
+       break;
+      case 5:
+        fill(220);
+        beginShape();
+        vertex(getFaultX(0),getFaultY(0));
+        vertex(getFaultX(0),getFaultY(80));
+        vertex(getFaultX(24.2487),getFaultY(80));
+        vertex(getFaultX(24.2487),getFaultY(0));
+        endShape();
+        fill(255);
+       break;
+      case 6:
+        fill(220);
+        beginShape();
+        vertex(getFaultX(0),getFaultY(0));
+        vertex(getFaultX(0),getFaultY(32));
+        vertex(getFaultX(24.2487),getFaultY(32));
+        vertex(getFaultX(24.2487),getFaultY(0));
+        endShape();
+        fill(255);
+       break;
+      case 7:
+        fill(220);
+        beginShape();
+        vertex(getFaultX(0),getFaultY(0));
+        vertex(getFaultX(0),getFaultY(40));
+        vertex(getFaultX(28.2843),getFaultY(68.2843));
+        vertex(getFaultX(46.6554),getFaultY(49.9131));
+        vertex(getFaultX(25.9808),getFaultY(29.2384));
+        vertex(getFaultX(25.9808),getFaultY(0));
+        endShape();
+        fill(255);
+       break; 
+    }
+  }
+  
 }
 
 void initializeLine() {
