@@ -79,7 +79,17 @@ void draw() {
   text("Non-Strike-Slip",720,25);
   if(firstPassFlag == 1){
     drawLegend();
+    drawScreenshotButton();
   }
+}
+void drawScreenshotButton(){
+  stroke(0);
+  fill(0);
+  rect(500,600,500,100);
+  fill(250);
+  rect(510,610,480,80);
+  fill(0);
+  text("Take Screenshot",700,650);
 }
 void drawLegend(){
   firstPassFlag = 0;
@@ -168,10 +178,19 @@ void showLine() {
   fill(0);
   plotFont = createFont("SansSerif", 20);
   textFont(plotFont);
-  text("X1 = "+(xmin[caseNo] + pX1*(xmax[caseNo]-xmin[caseNo])/500),120,630);
-  text("X2 = "+(xmin[caseNo] + pX2*(xmax[caseNo]-xmin[caseNo])/500),120,670);
-  text("Y1 = "+(ymin[caseNo] + (600-pY1)*(ymax[caseNo]-ymin[caseNo])/400),250,630);
-  text("Y2 = "+(ymin[caseNo] + (600-pY2)*(ymax[caseNo]-ymin[caseNo])/400),250,670);
+  String sX1 = "X1 = "+(xmin[caseNo] + pX1*(xmax[caseNo]-xmin[caseNo])/500);
+  int posX1 = sX1.indexOf(".");
+  String sX2 = "X2 = "+(xmin[caseNo] + pX2*(xmax[caseNo]-xmin[caseNo])/500);
+  int posX2 = sX2.indexOf(".");
+  String sY1 = "Y1 = "+(ymin[caseNo] + (600-pY1)*(ymax[caseNo]-ymin[caseNo])/400);
+  int posY1 = sY1.indexOf(".");
+  String sY2 = "Y2 = "+(ymin[caseNo] + (600-pY2)*(ymax[caseNo]-ymin[caseNo])/400);
+  int posY2 = sY2.indexOf(".");
+  
+  text(sX1.substring(0,posX1+2),120,630);
+  text(sX2.substring(0,posX2+2),120,670);
+  text(sY1.substring(0,posY1+2),250,630);
+  text(sY2.substring(0,posY2+2),250,670);
   fill(255);
 }
 
@@ -208,6 +227,15 @@ void mousePressed() {
     plotFlag =1;
     initializeLine();
   }
+  if(mouseX>500 && mouseY > 600){
+    takeScreenshot();
+  }
+}
+
+void takeScreenshot(){
+   float num = random(100);
+   String fn = "screenShot_" + num + ".jpg";
+   save(fn);
 }
 
 void checkSSNSS(float X) {
@@ -374,16 +402,16 @@ void drawFault() {
     strokeWeight(2);
     switch(selCase){
       case 1:
-        line(getFaultX(0),getFaultY(0),getFaultX(0),getFaultY(6));
+        line(getFaultX(0.2),getFaultY(0),getFaultX(0.2),getFaultY(6));
         break;
       case 2:
-        line(getFaultX(0),getFaultY(0),getFaultX(0),getFaultY(25));
+        line(getFaultX(0.2),getFaultY(0),getFaultX(0.2),getFaultY(25));
         break;
       case 3:
-        line(getFaultX(0),getFaultY(0),getFaultX(0),getFaultY(80));
+        line(getFaultX(0.2),getFaultY(0),getFaultX(0.2),getFaultY(80));
         break;
       case 4:
-        line(getFaultX(0),getFaultY(0),getFaultX(0),getFaultY(235));
+        line(getFaultX(0.2),getFaultY(0),getFaultX(0.2),getFaultY(235));
         break;
       case 5:
         line(getFaultX(0),getFaultY(0),getFaultX(0),getFaultY(20));
@@ -391,6 +419,7 @@ void drawFault() {
         break;
       case 6:
         strokeWeight(1);
+        stroke(220);
         fill(220);
         beginShape();
         vertex(getFaultX(0),getFaultY(0));
@@ -399,6 +428,7 @@ void drawFault() {
         vertex(getFaultX(5.1303),getFaultY(0));
         endShape();
         fill(255);
+        stroke(0);
         //line(getFaultX(0),getFaultY(0),getFaultX(0),getFaultY(80));
         break;
       default:
@@ -407,6 +437,7 @@ void drawFault() {
     strokeWeight(1);
   }
   else {
+    stroke(220);
     switch(selCase){
       case 1:
         fill(220);
@@ -481,6 +512,7 @@ void drawFault() {
         fill(255);
        break; 
     }
+    stroke(0);
   }
   
 }
