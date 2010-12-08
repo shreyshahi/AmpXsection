@@ -604,14 +604,14 @@ float[] getYpts() {
     y3 = data.getFloat(l*(floor(lX[i])-xmin[caseNo])+(ceil(lY[i])-ymin[caseNo]),2);
     y4 = data.getFloat(l*(floor(lX[i])-xmin[caseNo])+(floor(lY[i])-ymin[caseNo]),2);
 
-    d1 = sqrt(pow((ceil(lX[i])-lX[i]),2) + pow((ceil(lY[i])-lY[i]),2));
-    d2 = sqrt(pow((ceil(lX[i])-lX[i]),2) + pow((floor(lY[i])-lY[i]),2));
-    d3 = sqrt(pow((floor(lX[i])-lX[i]),2) + pow((ceil(lY[i])-lY[i]),2));
-    d4 = sqrt(pow((floor(lX[i])-lX[i]),2) + pow((floor(lY[i])-lY[i]),2));
+    d1 = sqrt(pow((ceil(lX[i])-lX[i]),2) + pow((ceil(lY[i])-lY[i]),2))+0.001;
+    d2 = sqrt(pow((ceil(lX[i])-lX[i]),2) + pow((floor(lY[i])-lY[i]),2))+0.001;
+    d3 = sqrt(pow((floor(lX[i])-lX[i]),2) + pow((ceil(lY[i])-lY[i]),2))+0.001;
+    d4 = sqrt(pow((floor(lX[i])-lX[i]),2) + pow((floor(lY[i])-lY[i]),2))+0.001;
     if(i == 0){
       print(" x = " + lY[i] + " xx = " +  data.getFloat(l*(floor(lX[i])-xmin[caseNo])+(floor(lY[i])-ymin[caseNo]),1)); 
     }
-    Ypt[i] = (y1*d1+y2*d2+y3*d3+y4*d4)/(d1+d2+d3+d4);
+    Ypt[i] = (y1*(1/d1)+y2*(1/d2)+y3*(1/d3)+y4*(1/d4))/((1/d1)+(1/d2)+(1/d3)+(1/d4));
   }
   return Ypt;
 }
