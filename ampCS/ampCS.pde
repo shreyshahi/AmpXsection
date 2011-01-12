@@ -38,7 +38,7 @@ float[] rmax = {1.2};
 FloatTable data;
 
 void setup() {
-  size(1000,700);
+  size(1050,700);
   background(255,255,255);
 }
 
@@ -85,11 +85,11 @@ void draw() {
 void drawScreenshotButton(){
   stroke(0);
   fill(0);
-  rect(500,600,500,100);
+  rect(500,630,550,70);
   fill(250);
-  rect(510,610,480,80);
+  rect(510,640,530,50);
   fill(0);
-  text("Take Screenshot",700,650);
+  text("Take Screenshot",710,660);
 }
 void drawLegend(){
   firstPassFlag = 0;
@@ -167,7 +167,10 @@ void drawTboxes() {
 
 void showLine() {
   line(pX1,pY1,pX2,pY2);
-  //TODO: Rescale the x and y values for display 
+  fill(0);
+  textSize(12);
+  text("A",pX1,pY1);
+  text("B",pX2,pY2); 
   int caseNo;
   if(ssNSS == 0) {
     caseNo = selCase -1 ;
@@ -276,10 +279,10 @@ void checkCrossSection(float X, float Y) {
 
 void drawSS() {
   fill(255,0,0);
-  rect(0,0,500,50); // Strike slip
+  rect(0,0,525,50); // Strike slip
   fill(240);
-  rect(500,0,500,50); // non strike slip
-  float caseW = 1000/6;
+  rect(525,0,525,50); // non strike slip
+  float caseW = 1050/6;
   for(int i =0; i<6; i++) {
     rect(0+i*caseW,50,caseW,50);
     fill(0);
@@ -295,11 +298,11 @@ void drawSS() {
 
 void drawNSS() {
   fill(240);
-  rect(0,0,500,50); // Strike slip
+  rect(0,0,525,50); // Strike slip
   fill(255,0,0);
-  rect(500,0,500,50); // non strike slip
+  rect(525,0,525,50); // non strike slip
   fill(240);
-  float caseW = 1000/7;
+  float caseW = 1050/7;
   for(int i =0; i<7; i++) {
     rect(0+i*caseW,50,caseW,50);
     fill(0);
@@ -328,16 +331,54 @@ void drawPlotBox2(){
     for(int i = 0; i<3;i++){
        line(500,200+i*200,1000,200+i*200); 
     }
+
+    rect(1000,200,50,400);
+    
+    // tick values on y-axis
     textSize(10);
     fill(0);
+    textAlign(LEFT,CENTER);
     String[] values = {"2.0","1.8","1.6","1.4","1.2","1.0","0.8","0.6","0.4","0.2"};
     for(int i = 0; i<10; i++){
-        text(values[i],500+5,200+i*40+2);
-    }  
+      if(i > 0){
+        text(values[i],1000+5,200+i*40);
+      }else{
+        text(values[i],1000+5,200+i*40+2);
+      }
+    }
+    
+    // Y-axis label
+    textSize(15);
+    pushMatrix();
+    translate(1000+30,450);
+    rotate(-HALF_PI);
+    text("Amplification",0,0);
+    popMatrix();
+    fill(255);
+    
+    rect(500,600,550,30);
+    // X-axis label
+    fill(0);
+    textSize(15);
+    text("A",505,612);
+    text("B",995,612);
+    arrow(520,615,980,615);
     fill(255);
   }
 }
 
+void arrow(int x1, int y1, int x2, int y2) {
+  line(x1, y1, x2, y2);
+  pushMatrix();
+  translate(x2, y2);
+  float a = atan2(x1-x2, y2-y1);
+  rotate(a);
+  line(0, 0, -10, -10);
+  line(0, 0, 10, -10);
+  popMatrix();
+} 
+
+/*
 void drawPlotBox() {
   if(plotFlag == 1) {
     textSize(12);
@@ -369,6 +410,7 @@ void drawPlotBox() {
     textSize(20);
   }
 }  
+*/
 
 float getFaultX(float x){
   int caseNo;
@@ -647,7 +689,7 @@ float[] mapSc2RealY(float[] Ysc) {
   }
   return Yreal;
 }
-
+/*
 void plotGraph_old(int i,float[] Xpts,float[] Ypts) {
   int nCases;
   float dW; 
@@ -669,7 +711,7 @@ void plotGraph_old(int i,float[] Xpts,float[] Ypts) {
   endShape();
   strokeWeight(1);
 }
-
+*/
 void plotGraph(int i,float[] Xpts,float[] Ypts) {
   if(ssNSS == 0) {
     stroke(ssR[i],ssG[i],ssB[i]);
