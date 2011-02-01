@@ -37,14 +37,14 @@ String[] ssNames = {"ss1","ss2","ss3","ss4","ss5","so6"};
 
 String[] nssNames = {"rv1","rv2","rv3","rv4","rv5","ro6","rv7"};
 
-String[] ssModels = {"abr00","abr10","row10","sha10_new","som97","spu08"};
-int[] ssR = {220,255,65,180,139,238};
-int[] ssG = {20,192,105,238,136,201};
-int[] ssB = {60,203,255,180,120,0};
-String[] nssModels = {"row10","sha10_new","som97","spu08"};
-int[] nssR = {65,180,139,238};
-int[] nssG = {105,238,136,201};
-int[] nssB = {255,180,120,0};
+String[] ssModels = {"abr00","abr10","row10","sha10","som97","spu08","row10_new"};
+int[] ssR = {220,255,65,180,139,238,135};
+int[] ssG = {20,192,105,238,136,201,206};
+int[] ssB = {60,203,255,180,120,0,250};
+String[] nssModels = {"row10","sha10","som97","spu08","row10_new"};
+int[] nssR = {65,180,139,238,135};
+int[] nssG = {105,238,136,201,206};
+int[] nssB = {255,180,120,0,250};
 
 int[] xmin = {0,0,0,0,-70,-70,-70,-70,-70,-70,-70,-70,-70};
 int[] xmax = {71,71,71,71,85,76,74,83,83,95,95,95,117};
@@ -82,8 +82,8 @@ public void draw() {
   stroke(0);
   fill(255);
   rect(0,200,500,400); // map
-  drawFault();
   drawGrid();
+  drawFault();
   if(flagFirstPt == 1) {
     showLine();
   }
@@ -117,25 +117,28 @@ public void drawLegend(){
   stroke(220,20,60);
   line(510,125,550,125);
   stroke(255,192,203);
-  line(680,125,720,125);
+  line(660,125,700,125);
   stroke(65,105,255);
-  line(840,125,880,125);
+  line(810,125,850,125);
   stroke(180,238,180);
   line(510,175,550,175);
   stroke(139,136,120);
-  line(680,175,720,175);
+  line(660,175,700,175);
   stroke(238,201,0);
-  line(840,175,880,175);
+  line(810,175,850,175);
+  stroke(135,206,250);
+  line(890,150,930,150);
   strokeWeight(1);
   fill(0);
   plotFont = createFont("SansSerif", 20);
   textFont(plotFont);
   text(ssModels[0],560,125);
-  text(ssModels[1],730,125);
-  text(ssModels[2],890,125);
-  text("sha10",560,175);
-  text(ssModels[4],730,175);
-  text(ssModels[5],890,175);
+  text(ssModels[1],710,125);
+  text(ssModels[2],860,125);
+  text(ssModels[3],560,175);
+  text(ssModels[4],710,175);
+  text(ssModels[5],860,175);
+  text(ssModels[6],940,150);
 }
 public void drawGrid(){
  stroke(240);
@@ -158,12 +161,12 @@ public void drawGrid(){
  }
  
  int numHor = floor((ymax[caseNo] - ymin[caseNo])/10);
- textAlign(LEFT, CENTER);
+ textAlign(RIGHT, CENTER);
  textSize(10);
  for(int i =0; i<numHor; i++){
    line(0,600-PApplet.parseFloat(i*10)/(ymax[caseNo] - ymin[caseNo])*400,500,600-PApplet.parseFloat(i*10)/(ymax[caseNo] - ymin[caseNo])*400);
    fill(0);
-   text(" " + (ymin[caseNo]+i*10),5,600-PApplet.parseFloat(i*10)/(ymax[caseNo] - ymin[caseNo])*400);
+   text(" " + (ymin[caseNo]+i*10),495,600-PApplet.parseFloat(i*10)/(ymax[caseNo] - ymin[caseNo])*400);
  }
  
  stroke(0);
@@ -460,7 +463,7 @@ public float getFaultY(float y){
 
 public void drawFault() {
   if(ssNSS == 0) {
-    strokeWeight(2);
+    strokeWeight(4);
     switch(selCase){
       case 1:
         line(getFaultX(0.2f),getFaultY(0),getFaultX(0.2f),getFaultY(6));
@@ -599,7 +602,7 @@ public void drawSSplots() {
   String fn;
   float[] Xpts = new float[101];
   float[] Ypts = new float[101];
-  for(int i=0;i<6;i++) {
+  for(int i=0;i<7;i++) {
     if(selCase == 6 && i == 1) {
       continue;
     }
@@ -615,7 +618,7 @@ public void drawNSSplots() {
   String fn;
   float[] Xpts = new float[101];
   float[] Ypts = new float[101];
-  for(int i=0;i<4;i++) {
+  for(int i=0;i<5;i++) {
     fn = nssNames[selCase-1]+"_"+T[selT-1]+"_"+nssModels[i]+".txt";
     data = new FloatTable(fn);
     Xpts = getXpts();
